@@ -6,7 +6,7 @@ Library with siple api for bar code recognition
 
 ## Supported barcode types
 
-## Sample impages sources
+## Sample images
 
  * ean13\_clear - http://en.wikipedia.org/wiki/International\_Article\_Number\_(EAN)
  * ean13\_blury - http://people.inf.ethz.ch/adelmanr/batoo/

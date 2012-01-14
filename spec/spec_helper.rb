@@ -6,13 +6,6 @@ RSpec.configure do |config|
   config.filter_run :focus
 end
 
-def image(filename)
-  path = File.join(image_folder, filename)
-  File.open(path) do |f|
-    yield f
-  end
-end
-
-def image_folder
-  File.join(File.dirname(__FILE__), 'images',)
+def image_path(filename)
+  File.join(File.dirname(__FILE__), 'images', filename)
 end

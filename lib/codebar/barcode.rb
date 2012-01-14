@@ -14,13 +14,13 @@ module Codebar
       @file_path = file_path
     end
 
-    def save_processed(path)
-      result = PROCESSORS.reduce(path) do |image, processor|
+    def save_processed(dest_path)
+      result = PROCESSORS.reduce(@file_path) do |image, processor|
         p image
         processor.process(image)
       end
       
-      result.write(path)
+      result.write(dest_path)
     end
 
     def decode
