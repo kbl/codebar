@@ -1,7 +1,7 @@
 require 'codebar'
 
 module Codebar
-  module Barcode
+  module Types
     module Ean13
       class Code
       end

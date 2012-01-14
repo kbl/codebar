@@ -3,7 +3,7 @@ require 'codebar'
 module Codebar
   module Image
     module Processors
-      module Binary
+      module Convert
 
         def self.process(file)
         end

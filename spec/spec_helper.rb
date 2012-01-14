@@ -5,3 +5,14 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 end
+
+def image(filename)
+  path = File.join(image_folder, filename)
+  File.open(path) do |f|
+    yield f
+  end
+end
+
+def image_folder
+  File.join(File.dirname(__FILE__), 'images',)
+end

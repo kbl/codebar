@@ -3,10 +3,9 @@ require 'codebar'
 module Codebar
   module Image
     module Processors
-      class Grayscale
+      module Grayscale
 
-        def process(image_file)
-          
+        def self.process(file)
         end
 
       end

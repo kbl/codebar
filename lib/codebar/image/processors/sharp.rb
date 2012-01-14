@@ -3,7 +3,11 @@ require 'codebar'
 module Codebar
   module Image
     module Processors
-      class Sharp
+      module Sharp
+
+        def self.process(file)
+        end
+
       end
     end
   end
