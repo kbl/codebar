@@ -10,12 +10,17 @@ module Codebar
       Codebar::Image::Processors::Binary
     ]
 
-    def initialize(image_file)
-      @image_file = image_file
+    def initialize(file_path)
+      @file_path = file_path
     end
 
     def save_processed(path)
-      PROCESSORS.each { |p| p.process(@image_file) }
+      result = PROCESSORS.reduce(path) do |image, processor|
+        p image
+        processor.process(image)
+      end
+      
+      result.write(path)
     end
 
     def decode

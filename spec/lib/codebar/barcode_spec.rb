@@ -7,6 +7,7 @@ module Codebar
     it 'is used only for speedup manual testing' do
       image('ean13_color.png') do |f|
         b = Barcode.new(f)
+
         b.save_processed(File.join(image_folder, 'result.bmp'))
       end
     end

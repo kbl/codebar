@@ -5,7 +5,8 @@ module Codebar
     module Processors
       module Grayscale
 
-        def self.process(file)
+        def self.process(mm_image)
+          mm_image
         end
 
       end
