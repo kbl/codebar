@@ -6,6 +6,7 @@ module Codebar
       module Grayscale
 
         def self.process(mm_image)
+          mm_image.combine_options { |i| i.colorspace 'Gray' }
           mm_image
         end
 

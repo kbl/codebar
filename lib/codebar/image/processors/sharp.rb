@@ -6,6 +6,9 @@ module Codebar
       module Sharp
 
         def self.process(mm_image)
+          mm_image.combine_options do |i| 
+            # TODO 
+          end
           mm_image
         end
 
