@@ -1,3 +1,5 @@
+require 'codebar'
+
 module Codebar
   module Barcode
     module Ean13
