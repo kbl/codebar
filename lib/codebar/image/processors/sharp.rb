@@ -6,12 +6,6 @@ module Codebar
       module Sharp
 
         def self.process(mm_image)
-          mm_image << 'morphology Convolve LoG:0x2'
-          return mm_image
-          mm_image.combine_options do |i| 
-            i.morphology 'Convolve LoG:0x2'
-          end
-          return mm_image
           radius = 1.4
           sigma = radius
           amount = 4

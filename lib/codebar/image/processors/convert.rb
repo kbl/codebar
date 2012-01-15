@@ -6,9 +6,9 @@ module Codebar
       module Convert
 
         def self.process(path)
-          i = MiniMagick::Image.open(path)
-          i.format('bmp')
-          i
+          mm_image = MiniMagick::Image.open(path)
+          mm_image.format('bmp')
+          mm_image
         end
 
       end
