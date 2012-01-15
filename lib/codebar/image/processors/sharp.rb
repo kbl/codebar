@@ -6,6 +6,8 @@ module Codebar
       module Sharp
 
         def self.process(mm_image)
+          Logger.debug('processing Sharp')
+
           radius = 1.4
           sigma = radius
           amount = 4
