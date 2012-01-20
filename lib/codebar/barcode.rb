@@ -10,32 +10,28 @@ module Codebar
       Codebar::Image::Processors::Binary
     ]
     
-    SUPPORTED_STANDARDS = [
-      Codebar::Standard::Ean13::Code
-    ]
+    SUPPORTED_STANDARDS = {
+      ean13: lambda { |bit_array| Codebar::Standard::Ean13::Code.new(bit_array) }
+    }
 
     def initialize(file_path)
       @file_path = file_path
     end
 
     def save_processed(dest_path)
-      result = process
-      result.write(dest_path)
+      processed_image.write(dest_path)
     end
 
     def decode
-      processed_image = process
       barcode_bit_array = Image::Extractor.new(processed_image).extract
 
-      SUPPORTED_STANDARDS.each do |t|
-        barcode = t.new(barcode_bit_array)
+      SUPPORTED_STANDARDS.each do |name, block|
+        barcode = block.call(barcode_bit_array)
         barcode.valid?
       end
     end
 
-    private
-
-    def process
+    def processed_image
       PROCESSORS.reduce(@file_path) do |image, processor|
         processor.process(image)
       end

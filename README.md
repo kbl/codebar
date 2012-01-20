@@ -4,7 +4,11 @@ Library with siple api for bar code recognition
 
 ## Supported file formats
 
+All files supported by `ImageMagick` are supported. `Codebar` internals process image to get best possible view of barcode, and convert its to plain bitmap on which all reading operations are performed.
+
 ## Supported barcode types
+
+Currently only `EAN13` barcode are supported (whisful thinking).
 
 ## Sample images
 
