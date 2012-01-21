@@ -17,5 +17,11 @@ module Codebar
       subject.save_processed(image_path('result.bmp'))
     end
 
+    it 'should throw error for unknow barcode standard' do
+      lambda do
+        subject.decode(:ean134)
+      end.should raise_error UnsupportedBarcodeStandardError
+    end
+
   end
 end

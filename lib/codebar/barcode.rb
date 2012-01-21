@@ -1,6 +1,9 @@
 require 'codebar'
 
 module Codebar
+
+  UnsupportedBarcodeStandardError = Class.new(RuntimeError)
+
   class Barcode
 
     PROCESSORS = [
@@ -22,13 +25,13 @@ module Codebar
       processed_image.write(dest_path)
     end
 
-    def decode
-      barcode_bit_array = Image::Extractor.new(processed_image).extract
+    def decode(standard = :ean13)
+      barcode_constructor = SUPPORTED_STANDARDS[standard]
+      raise UnsupportedBarcodeStandardError unless barcode_constructor
 
-      SUPPORTED_STANDARDS.each do |name, block|
-        barcode = block.call(barcode_bit_array)
-        barcode.valid?
-      end
+      barcode_bit_array = Image::Extractor.new(processed_image).extract
+      barcode = barcode_constructor.call(barcode_bit_array)
+      barcode.valid?
     end
 
     def processed_image
