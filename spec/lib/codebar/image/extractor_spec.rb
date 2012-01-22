@@ -4,7 +4,10 @@ module Codebar
   module Image
     describe Extractor do
 
-      let(:path) { image_path('ean13_clear.png') }
+      let(:path) { 
+        # image_path('ean13_clear.png')
+        image_path('ean13_color.png')
+      }
       let(:barcode) { Barcode.new(path) }
 
       subject { Extractor.new(barcode.processed_image) }

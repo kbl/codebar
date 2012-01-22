@@ -13,12 +13,11 @@ module Codebar
         height = @image[:height]
         size = "#{width}x#{height}"
 
-        central_line = width / 2
-        central_line -= 1
+        central_line = height / 2
 
         @image.combine_options do |i| 
-          i.crop "#{size}-0-%s" % 79
-          i.crop "#{size}-0+%s" % 80
+          i.crop "#{size}-0-%s" % central_line
+          i.crop "#{size}-0+%s" % (central_line - 1)
         end
         @image
       end
