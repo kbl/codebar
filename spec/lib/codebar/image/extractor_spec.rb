@@ -10,7 +10,8 @@ module Codebar
       subject { Extractor.new(barcode.processed_image) }
 
       it 'should return slice of image' do
-        subject.extract
+        image = subject.extract
+        image.write(image_path('dupa.bmp'))
       end
 
     end
