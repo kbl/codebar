@@ -3,11 +3,13 @@ require 'codebar'
 module Codebar
   module Logger
 
-    def self.debug(message)
+    extend self
+
+    def debug(message)
       logger.debug(message)
     end
 
-    def self.logger
+    def logger
       @logger ||= ::Logger.new(STDOUT)
     end
 

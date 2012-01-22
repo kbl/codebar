@@ -2,7 +2,7 @@ require 'codebar'
 
 module Codebar
   module Image
-    class Exctractor
+    class Extractor
 
       def initialize(image)
         @image = image
