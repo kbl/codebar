@@ -1,4 +1,5 @@
 require 'mini_magick'
+require 'chunky_png'
 require 'logger'
 
 require_relative 'codebar/logger'

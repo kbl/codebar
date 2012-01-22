@@ -12,9 +12,12 @@ module Codebar
 
       subject { Extractor.new(barcode.processed_image) }
 
-      it 'should return slice of image' do
-        image = subject.extract
-        image.write(image_path('dupa.bmp'))
+      it 'should return array of transformed pixels' do
+        pixels = subject.extract
+
+        pixels.should_not be_empty
+        set = Extractor::CONVERSION_MAP.values.inject(Set.new) { |set, pixel| set << pixel }
+        set.length.should == 2
       end
 
     end
