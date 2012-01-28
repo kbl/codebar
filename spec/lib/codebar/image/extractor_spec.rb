@@ -6,7 +6,8 @@ module Codebar
 
       let(:path) { 
         # image_path('ean13_clear.png')
-        image_path('ean13_color.png')
+        # image_path('ean13_color.png')
+        image_path('ean13_clear.jpg')
       }
       let(:barcode) { Barcode.new(path) }
 

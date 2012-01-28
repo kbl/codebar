@@ -14,7 +14,7 @@ module Codebar
 
     # how I could test automatically image processing? checking chanels, hue, saturation etc?
     it 'is used only for speedup manual testing' do
-      subject.save_processed(image_path('result.bmp'))
+      subject.save_processed(image_path('result.png'))
     end
 
     it 'should throw error for unknow barcode standard' do

@@ -1,5 +1,3 @@
-require 'codebar'
-
 module Codebar
   module Image
     class Extractor
@@ -8,8 +6,8 @@ module Codebar
       BLACK = 0x000000FF
 
       CONVERSION_MAP = {
-        WHITE => ' ',
-        BLACK => '#'
+        WHITE => '0',
+        BLACK => '1'
       }
 
       def initialize(image)

@@ -1,5 +1,3 @@
-require 'codebar'
-
 module Codebar
   module Image
     module Processors

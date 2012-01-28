@@ -1,5 +1,3 @@
-require 'codebar'
-
 module Codebar
 
   UnsupportedBarcodeStandardError = Class.new(RuntimeError)
@@ -8,9 +6,6 @@ module Codebar
 
     PROCESSORS = [
       Codebar::Image::Processors::Convert,
-      Codebar::Image::Processors::Grayscale,
-      Codebar::Image::Processors::Sharp,
-      Codebar::Image::Processors::Binary
     ]
     
     SUPPORTED_STANDARDS = {
