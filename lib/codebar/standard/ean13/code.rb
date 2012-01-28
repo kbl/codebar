@@ -5,6 +5,12 @@ module Codebar
 
         include Codebar::Image::Standard::Ean13
 
+        BARS_USED_FOR_ENCODING = 7
+        NUMBERS_ENCODED_IN_SIDE = 6
+
+        CENTER_GUARD_BARS_WIDTH = 5
+        GUARD_BARS_WIDTH = 3
+
         # hash of numbers, values represents [left odd, left even, right]
         NUMBERS = {'0' => ['0001101', '0100111', '1110010'],
                    '1' => ['0011001', '0110011', '1100110'],
@@ -20,6 +26,11 @@ module Codebar
         def initialize(code)
           @code         = code
           @narrow_width = Bar.new(@code).narrow_width
+
+          @left_part = code.slice(guard_width, part_width)
+          right_part_beginning = guard_width + part_width + center_guard_width
+          @left_part = code.slice(right_part_beginning, part_width)
+
           decode
         end
 
@@ -33,6 +44,24 @@ module Codebar
             check[a == b] += 1
           end
           p check
+        end
+
+        private
+
+        def number_width
+          @narrow_width * BARS_USED_FOR_ENCODING
+        end
+
+        def part_width
+          number_width * NUMBERS_ENCODED_IN_SIDE
+        end
+
+        def guard_width
+          @narrow_width * SIDE_BORDER_BARS_WIDTH
+        end
+
+        def center_guard_width
+          @narrow_width * CENTER_BORDER_BARS_WIDTH
         end
 
       end
