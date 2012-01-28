@@ -26,7 +26,12 @@ module Codebar
 
       barcode_bit_array = Image::Extractor.new(processed_image).extract
       barcode = barcode_constructor.call(barcode_bit_array)
-      barcode.valid?
+
+      if barcode.valid?
+        barcode.decode
+      else
+        nil
+      end
     end
 
     def processed_image
