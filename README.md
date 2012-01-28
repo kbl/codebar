@@ -10,7 +10,23 @@ All files supported by `ImageMagick` are supported. `Codebar` internals process 
 
 Currently only `EAN13` barcode are supported (whisful thinking).
 
+## Usage
+
+    require 'codebar'
+
+    barcode = Codebaar::Barcode.new('/path/to/image_file.gif', :ean13)
+    barcode.decode
+
+You could also create instance of `Barcode` without specyfing bar code encoding standard. In such case library will choose appropriate standard (if such is implemented and image could be processed).
+
+    require 'codebar'
+
+    barcode = Codebaar::Barcode.new('/path/to/image_file.gif')
+    barcode.decode
+
 ## Sample images
+
+Following list contains sample images used during tests and development
 
  * ean13\_clear.png - http://en.wikipedia.org/wiki/International\_Article\_Number\_(EAN)
  * ean13\_blurry.png - http://people.inf.ethz.ch/adelmanr/batoo/
@@ -20,4 +36,10 @@ Currently only `EAN13` barcode are supported (whisful thinking).
  * ean13\_clear2.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
 
 ## Progress
- * Reading image from file with preprocessing (converting into grayscale, sharpeing, binarization)
+ * Reading image from file with preprocessing (converting into grayscale, sharpeing, binarization),
+ * Decoding EAN13 barcodes from perfectly clear images.
+
+## TODO
+ * Rotation detection (bar code upside down),
+ * Distance algorithms for not exact matching numbers,
+ * Support of different bar code encoding standards.
