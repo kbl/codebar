@@ -25,43 +25,49 @@ module Codebar
 
         def initialize(code)
           @code         = code
-          @narrow_width = Bar.new(@code).narrow_width
+          @bar_width = Bar.new(@code).narrow_width
 
           @left_part = code.slice(guard_width, part_width)
           right_part_beginning = guard_width + part_width + center_guard_width
-          @left_part = code.slice(right_part_beginning, part_width)
+          @right_part = code.slice(right_part_beginning, part_width)
 
           decode
         end
 
         def valid?
+          not @decoded.nil?
         end
 
         def decode
           return @decoded if @decoded
-          check = Hash.new(0)
-          @code.each_cons(@narrow_width) do |a, b|
-            check[a == b] += 1
+          @left_part.each_slice(digit_width) do |digits|
+            digits = normalize(digits)
           end
-          p check
+
+          @decoded
         end
 
         private
 
-        def number_width
-          @narrow_width * NO_BARS_ENCODING_DIGIT
+        def digit_width
+          @bar_width * NO_BARS_ENCODING_DIGIT
         end
 
         def part_width
-          number_width * NO_DIGITS_ENCODED_IN_PART
+          digit_width * NO_DIGITS_ENCODED_IN_PART
         end
 
         def guard_width
-          @narrow_width * GUARD_NO_BARS
+          @bar_width * GUARD_NO_BARS
         end
 
         def center_guard_width
-          @narrow_width * CENTER_GUARD_NO_BARS
+          @bar_width * CENTER_GUARD_NO_BARS
+        end
+
+        def normalize(digits)
+          digits.each_slice(@bar_width) do |number|
+          end
         end
 
       end
