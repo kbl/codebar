@@ -4,16 +4,13 @@ module Codebar
 
   class Barcode
 
-    PROCESSORS = [
-      Codebar::Image::Processors::Convert,
-    ]
-    
     SUPPORTED_STANDARDS = {
       ean13: lambda { |bit_array| Codebar::Standard::Ean13::Code.new(bit_array) }
     }
 
-    def initialize(file_path)
+    def initialize(file_path, processor = Image::Processor.new)
       @file_path = file_path
+      @processor = processor
     end
 
     def save_processed(dest_path)
@@ -35,9 +32,7 @@ module Codebar
     end
 
     def processed_image
-      PROCESSORS.reduce(@file_path) do |image, processor|
-        processor.process(image)
-      end
+      @processor.process(@file_path)
     end
 
   end
