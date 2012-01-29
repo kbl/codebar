@@ -115,21 +115,25 @@ module Codebar
         end
 
         def find_number(sequence, side)
-          case side
-            when :left
-              if @notation
-                SEQUENCES_LEFT[@notation][sequence]
-              else
-                SEQUENCES_LEFT.each do |notation, hash|
-                  if hash.has_key?(sequence)
-                    @notation = notation
-                    return SEQUENCES_LEFT[@notation][sequence]
-                  end
-                end
+          # calling appropriate method for left/right side of bar code
+          send("#{side}_side_number", sequence)
+        end
+
+        def left_side_number(sequence)
+          if @notation
+            SEQUENCES_LEFT[@notation][sequence]
+          else
+            SEQUENCES_LEFT.each do |notation, hash|
+              if hash.has_key?(sequence)
+                @notation = notation
+                return SEQUENCES_LEFT[@notation][sequence]
               end
-            when :right
-              SEQUENCES_RIGHT[sequence]
+            end
           end
+        end
+
+        def right_side_number(sequence)
+          SEQUENCES_RIGHT[sequence]
         end
 
       end
