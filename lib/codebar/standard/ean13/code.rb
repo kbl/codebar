@@ -6,8 +6,6 @@ module Codebar
 
       class Code
 
-        include Codebar::Image::Standard::Ean13
-
         NO_BARS_ENCODING_DIGIT = 7
         NO_DIGITS_ENCODED_IN_PART = 6
 
