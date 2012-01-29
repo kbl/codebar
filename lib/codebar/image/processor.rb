@@ -12,18 +12,9 @@ module Codebar
 
       private
 
-      def binarize(mm_image)
-        Logger.debug('processing Binary')
-
-        mm_image.combine_options do |i| 
-          i.white_threshold '25%'
-          i.colors '2'
-          i.normalize
-        end
-
-        mm_image
-      end
-
+      # Converts all images to png fomat used in furhter processing.
+      #
+      # +chunky_png+ gem is used to read image data.
       def convert(path)
         Logger.debug('processing Convert')
 
@@ -32,6 +23,7 @@ module Codebar
         mm_image
       end
 
+      # Converting image to grayscale.
       def gray_is_great(mm_image)
         Logger.debug('processing Grayscale')
 
@@ -39,6 +31,10 @@ module Codebar
         mm_image
       end
       
+      # Attempt to sharpen image.
+      #
+      # Parameters for sharpeing was choosed as suggested in article
+      # http://redskiesatnight.com/2005/04/06/sharpening-using-image-magick/
       def sharpen(mm_image)
         Logger.debug('processing Sharp')
 
@@ -53,6 +49,20 @@ module Codebar
 
         mm_image
       end
+
+      # Convertin image to black/white without other grayscale colors.
+      def binarize(mm_image)
+        Logger.debug('processing Binary')
+
+        mm_image.combine_options do |i| 
+          i.white_threshold '25%'
+          i.colors '2'
+          i.normalize
+        end
+
+        mm_image
+      end
+
 
     end
   end
