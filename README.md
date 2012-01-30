@@ -34,16 +34,22 @@ You could also try to decode `Barcode` without specyfing bar code encoding stand
 
 Former indicates rather heavy dependency on ImageMagick.
 
-## Progress
+## Issues
 
- * Reading image from file with preprocessing (converting into grayscale, sharpeing, binarization),
- * Decoding EAN13 barcodes from perfectly clear images.
+`Codebar` was tested on
+
+    Linux ubuntu 2.6.38-13-generic
+    ruby 1.9.2p290 (2011-07-09 revision 32553) [x86_64-linux]
+    ImageMagick 6.6.7-5 2011-02-06 Q16
+
+And all specs are green, but it's proven to fail on certain setups (issue #6).
 
 ## Things to be done
 
  * Rotation detection (bar code upside down),
  * Distance algorithms for not exact matching numbers,
- * Support of different bar code encoding standards.
+ * Support of different bar code encoding standards,
+ * Support of different platforms.
 
 ## Sample images
 
