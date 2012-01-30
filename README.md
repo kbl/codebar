@@ -47,3 +47,4 @@ Following list contains sample images used during tests and development
  * Rotation detection (bar code upside down),
  * Distance algorithms for not exact matching numbers,
  * Support of different bar code encoding standards.
+
