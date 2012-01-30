@@ -12,6 +12,8 @@ module Codebar
         CENTER_GUARD_NO_BARS= 5
         GUARD_NO_BARS= 3
 
+        CHECKSUM_MODULO = 10
+
         # hash of numbers, values represents [left odd, left even, right]
         SEQUENCES_RIGHT = {
           '1110010' => '0',
@@ -80,7 +82,7 @@ module Codebar
         end
 
         def valid?
-          not @decoded.nil?
+          not @decoded.nil? and validate_checksum
         end
 
         def decode
@@ -144,6 +146,17 @@ module Codebar
           @left_part_encoding = @left_part_encoding.join('').to_sym
 
           @decoded = FIRST_DIGIT_ENCODING[@left_part_encoding] + @decoded
+        end
+
+        def validate_checksum
+          weights = [1, 3].cycle
+          checksum = @decoded[0..-2].each_char.inject(0) do |checksum, digit| 
+            checksum += weights.next * digit.to_i
+          end
+          checksum = CHECKSUM_MODULO - checksum
+          checksum %= CHECKSUM_MODULO
+
+          @decoded[-1].to_i == checksum
         end
 
       end
