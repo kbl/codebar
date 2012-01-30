@@ -17,10 +17,33 @@ module Codebar
       subject.save_processed(image_path('result.png'))
     end
 
-    it 'should throw error for unknow barcode standard' do
-      lambda do
-        subject.decode(:ean134)
-      end.should raise_error UnsupportedBarcodeStandardError
+    context 'exceptions' do
+      it 'should throw error for unknow barcode standard' do
+        lambda do
+          subject.decode(:ean134)
+        end.should raise_error UnsupportedBarcodeStandardError
+      end
+
+      it 'should throw error for unexisting image file' do
+        lambda do
+          b = Barcode.new(image_path('unexisting_image.test'))
+          b.decode
+        end.should raise_error Codebar::Image::FileNotFoundError
+      end
+
+      it 'should throw error for not text file path passed' do
+        lambda do
+          b = Barcode.new(image_path(File.join('..', 'spec_helper.rb')))
+          b.decode
+        end.should raise_error Codebar::Image::InvalidImageFileError
+      end
+
+      it 'should throw error for not text file path passed' do
+        lambda do
+          b = Barcode.new(image_path('ean13_blurry.png'))
+          b.decode
+        end.should raise_error Codebar::UnknownBarcodeStandardError
+      end
     end
 
     it 'should properly decode barcode, example #2' do
@@ -35,7 +58,7 @@ module Codebar
 
     it 'should properly decode barcode, example #4' do
       b = Barcode.new(image_path('ean13_clear4.jpg'))
-      b.decode.should == '5060204120848'
+      b.decode(:ean13).should == '5060204120848'
     end
 
     it 'should properly decode barcode, example #5' do

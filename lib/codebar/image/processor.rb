@@ -2,6 +2,7 @@ module Codebar
   module Image
 
     FileNotFoundError = Class.new(RuntimeError)
+    InvalidImageFileError = Class.new(RuntimeError)
 
     class Processor
 
@@ -21,9 +22,13 @@ module Codebar
       #
       # +chunky_png+ gem is used to read image data.
       def convert(path)
-        mm_image = MiniMagick::Image.open(path)
-        mm_image.format('png')
-        mm_image
+        begin
+          mm_image = MiniMagick::Image.open(path)
+          mm_image.format('png')
+          mm_image
+        rescue MiniMagick::Invalid
+          raise InvalidImageFileError, "#{path} is not an image"
+        end
       end
 
       # Converting image to grayscale.
