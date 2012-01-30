@@ -23,12 +23,6 @@ module Codebar
       end.should raise_error UnsupportedBarcodeStandardError
     end
 
-    it 'should properly decode barcode' do
-      pending
-      b = Barcode.new(image_path('ean13_clear.jpg'))
-      b.decode.should == '060204123733'
-    end
-
     it 'should properly decode barcode, example #2' do
       b = Barcode.new(image_path('ean13_clear2.png'))
       b.decode.should == '0075678164125'
