@@ -57,7 +57,8 @@ module Codebar
 
         # table representing odd/even types of encoding for first number
         # first 6 encoded digits (in left part of barcode) specifies 13 digit (first one)
-        FIRST_DIGIT_ENCODING = {
+        # e o means even odd respectively
+        FIRST_DIGIT = {
           oooooo: '0',
           ooeoee: '1',
           ooeeoe: '2',
@@ -74,8 +75,8 @@ module Codebar
           @bars       = Bars.new(code)
           @code       = @bars.normalized
 
-          right_part_beginning = guard_width + part_width + center_guard_width
-          @left_part  = @code.slice(guard_width, part_width)
+          right_part_beginning = GUARD_NO_BARS + part_width + CENTER_GUARD_NO_BARS
+          @left_part  = @code.slice(GUARD_NO_BARS, part_width)
           @right_part = @code.slice(right_part_beginning, part_width)
 
           decode
@@ -91,10 +92,10 @@ module Codebar
           @decoded            = ''
           @left_part_encoding = []
 
-          @left_part.each_slice(digit_width) do |digits|
+          @left_part.each_slice(NO_BARS_ENCODING_DIGIT) do |digits|
             @decoded += find_number(digits.join(''), :left)
           end
-          @right_part.each_slice(digit_width) do |digits|
+          @right_part.each_slice(NO_BARS_ENCODING_DIGIT) do |digits|
             @decoded += find_number(digits.join(''), :right)
           end
 
@@ -103,49 +104,36 @@ module Codebar
 
         private
 
-        def digit_width
-          NO_BARS_ENCODING_DIGIT
-        end
-
         def part_width
-          digit_width * NO_DIGITS_ENCODED_IN_PART
-        end
-
-        def guard_width
-          GUARD_NO_BARS
-        end
-
-        def center_guard_width
-          CENTER_GUARD_NO_BARS
+          NO_BARS_ENCODING_DIGIT * NO_DIGITS_ENCODED_IN_PART
         end
 
         def find_number(sequence, side)
           # calling appropriate method for left/right side of bar code
-          send("#{side}_side_number", sequence)
+          send("#{side}_side_digit", sequence)
         end
 
-        def left_side_number(sequence)
+        def left_side_digit(sequence)
           number = nil
 
           SEQUENCES_LEFT.each do |notation, hash|
             if hash.has_key?(sequence)
               number = SEQUENCES_LEFT[notation][sequence]
               @left_part_encoding << notation.to_s[0]
-              break
             end
           end
 
           number
         end
 
-        def right_side_number(sequence)
+        def right_side_digit(sequence)
           SEQUENCES_RIGHT[sequence]
         end
 
         def prepend_first_digit
           @left_part_encoding = @left_part_encoding.join('').to_sym
 
-          @decoded = FIRST_DIGIT_ENCODING[@left_part_encoding] + @decoded
+          @decoded = FIRST_DIGIT[@left_part_encoding] + @decoded
         end
 
         def validate_checksum

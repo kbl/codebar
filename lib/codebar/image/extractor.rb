@@ -41,7 +41,7 @@ module Codebar
 
         first = pixels.index(CONVERSION_MAP[BLACK])
         last =  pixels.rindex(CONVERSION_MAP[BLACK])
-        length = last - first + 1 # adding one to iclude last index
+        length = last - first + 1 # adding one to include last index
 
         @extracted = pixels.slice(first, length)
       end

@@ -24,27 +24,31 @@ module Codebar
         def split_code_into_sequences
           prev = @code[0]
           sequence = ''
-          result = []
+          sequences = []
           
           @code.each do |char|
             if char == prev
               sequence += char
             else
-              result << sequence
+              sequences << sequence
               prev = char
               sequence = char
             end
           end
-          result << sequence
+          sequences << sequence
 
-          @code = result
+          @code = sequences
         end
 
+        # normalizes @code taking into account @bar_width
+        # ie when @bar_width == 2 and @code == ['11', '00', '11', ...] then
+        # @normalized == ['1', '0', '1', ...]
         def normalize
           @normalized = []
           @code.each do |sequence|
             how_many_bars = sequence.length * 1.0 / @narrow_width
-            how_many_bars.round.times { @normalized << sequence[0] }
+            bar = sequence[0]
+            how_many_bars.round.times { @normalized << bar }
           end
         end
 

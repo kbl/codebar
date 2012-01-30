@@ -33,7 +33,7 @@ module Codebar
       
       # Attempt to sharpen image.
       #
-      # Parameters for sharpeing was choosed as suggested in article
+      # Parameters for image sharpening was choosed as suggested in article
       # http://redskiesatnight.com/2005/04/06/sharpening-using-image-magick/
       def sharpen(mm_image)
         Logger.debug('processing Sharp')
