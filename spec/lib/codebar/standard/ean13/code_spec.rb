@@ -16,7 +16,7 @@ module Codebar
         end
 
         it 'should properly decode bar code, example #2' do
-          Code.new(ean13_clear2).decode.should == '075678164125'
+          Code.new(ean13_clear2).decode.should == '0075678164125'
         end
 
       end

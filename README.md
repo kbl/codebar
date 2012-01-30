@@ -8,7 +8,8 @@ All files supported by `ImageMagick` are supported. `Codebar` internals process 
 
 ## Supported barcode types
 
-Currently only `EAN13` barcode are supported (whisful thinking).
+* EAN13
+* UPC-A
 
 ## Usage
 
@@ -34,6 +35,7 @@ Following list contains sample images used during tests and development
  * ean13\_color.png - _Research and Application of the EAN-13 Barcode Recognition on Iphone_ by YeMin Li, Li Zeng
  * ean13\_clear.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
  * ean13\_clear2.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
+ * ean13\_clear5.png - http://jjil.googlecode.com/
 
 ## Progress
  * Reading image from file with preprocessing (converting into grayscale, sharpeing, binarization),

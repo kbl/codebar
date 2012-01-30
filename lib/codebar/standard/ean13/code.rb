@@ -53,6 +53,21 @@ module Codebar
           }
         }
 
+        # table representing odd/even types of encoding for first number
+        # first 6 encoded digits (in left part of barcode) specifies 13 digit (first one)
+        FIRST_DIGIT_ENCODING = {
+          oooooo: '0',
+          ooeoee: '1',
+          ooeeoe: '2',
+          ooeeeo: '3',
+          oeooee: '4',
+          oeeooe: '5',
+          oeeeoo: '6',
+          oeoeoe: '7',
+          oeoeeo: '8',
+          oeeoeo: '9'
+        }
+
         def initialize(code)
           @bars       = Bars.new(code)
           @code       = @bars.normalized
@@ -71,7 +86,9 @@ module Codebar
         def decode
           return @decoded if @decoded
           
-          @decoded = ''
+          @decoded            = ''
+          @left_part_encoding = []
+
           @left_part.each_slice(digit_width) do |digits|
             @decoded += find_number(digits.join(''), :left)
           end
@@ -79,7 +96,7 @@ module Codebar
             @decoded += find_number(digits.join(''), :right)
           end
 
-          @decoded
+          prepend_first_digit
         end
 
         private
@@ -108,15 +125,11 @@ module Codebar
         def left_side_number(sequence)
           number = nil
 
-          if @notation
-            number = SEQUENCES_LEFT[@notation][sequence]
-          else
-            SEQUENCES_LEFT.each do |notation, hash|
-              if hash.has_key?(sequence)
-                @notation = notation
-                number = SEQUENCES_LEFT[@notation][sequence]
-                break
-              end
+          SEQUENCES_LEFT.each do |notation, hash|
+            if hash.has_key?(sequence)
+              number = SEQUENCES_LEFT[notation][sequence]
+              @left_part_encoding << notation.to_s[0]
+              break
             end
           end
 
@@ -125,6 +138,12 @@ module Codebar
 
         def right_side_number(sequence)
           SEQUENCES_RIGHT[sequence]
+        end
+
+        def prepend_first_digit
+          @left_part_encoding = @left_part_encoding.join('').to_sym
+
+          @decoded = FIRST_DIGIT_ENCODING[@left_part_encoding] + @decoded
         end
 
       end

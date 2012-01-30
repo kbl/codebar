@@ -31,7 +31,7 @@ module Codebar
 
     it 'should properly decode barcode, example #2' do
       b = Barcode.new(image_path('ean13_clear2.png'))
-      b.decode.should == '075678164125'
+      b.decode.should == '0075678164125'
     end
 
     it 'should properly decode barcode, example #3' do
@@ -44,6 +44,11 @@ module Codebar
       pending
       b = Barcode.new(image_path('ean13_clear4.jpg'))
       b.decode.should == '060204120848'
+    end
+
+    it 'should properly decode barcode, example #5' do
+      b = Barcode.new(image_path('ean13_clear5.png'))
+      b.decode.should == '1234567890128'
     end
 
   end
