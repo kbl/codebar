@@ -16,8 +16,6 @@ module Codebar
       #
       # +chunky_png+ gem is used to read image data.
       def convert(path)
-        Logger.info('processing Convert')
-
         mm_image = MiniMagick::Image.open(path)
         mm_image.format('png')
         mm_image
@@ -25,8 +23,6 @@ module Codebar
 
       # Converting image to grayscale.
       def gray_is_great(mm_image)
-        Logger.info('processing Grayscale')
-
         mm_image.combine_options { |i| i.colorspace 'Gray' }
         mm_image
       end
@@ -36,8 +32,6 @@ module Codebar
       # Parameters for image sharpening was choosed as suggested in article
       # http://redskiesatnight.com/2005/04/06/sharpening-using-image-magick/
       def sharpen(mm_image)
-        Logger.info('processing Sharp')
-
         radius = 1.4
         sigma = radius
         amount = 4
@@ -52,8 +46,6 @@ module Codebar
 
       # Convertin image to black/white without other grayscale colors.
       def binarize(mm_image)
-        Logger.info('processing Binary')
-
         mm_image.combine_options do |i| 
           i.white_threshold '25%'
           i.colors '2'

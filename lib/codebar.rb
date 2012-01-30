@@ -1,8 +1,5 @@
 require 'mini_magick'
 require 'chunky_png'
-require 'logger'
-
-require_relative 'codebar/logger'
 
 require_relative 'codebar/image/processor'
 require_relative 'codebar/image/extractor'

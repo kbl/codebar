@@ -93,10 +93,10 @@ module Codebar
           @left_part_encoding = []
 
           @left_part.each_slice(NO_BARS_ENCODING_DIGIT) do |digits|
-            @decoded += find_number(digits.join(''), :left)
+            @decoded += find_digit(digits.join(''), :left)
           end
           @right_part.each_slice(NO_BARS_ENCODING_DIGIT) do |digits|
-            @decoded += find_number(digits.join(''), :right)
+            @decoded += find_digit(digits.join(''), :right)
           end
 
           prepend_first_digit
@@ -108,9 +108,11 @@ module Codebar
           NO_BARS_ENCODING_DIGIT * NO_DIGITS_ENCODED_IN_PART
         end
 
-        def find_number(sequence, side)
+        def find_digit(sequence, side)
           # calling appropriate method for left/right side of bar code
-          send("#{side}_side_digit", sequence)
+          digit = send("#{side}_side_digit", sequence)
+          raise BarcodeDataCorruptedError, "could not decode sequence: #{sequence}" unless digit
+          digit
         end
 
         def left_side_digit(sequence)
