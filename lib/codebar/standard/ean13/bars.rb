@@ -22,6 +22,8 @@ module Codebar
         end
 
         def split_code_into_sequences
+          raise BarcodeDataCorruptedError if @code.any?(&:nil?)
+
           prev = @code[0]
           sequence = ''
           sequences = []
