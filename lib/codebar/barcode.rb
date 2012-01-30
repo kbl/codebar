@@ -5,7 +5,8 @@ module Codebar
   class Barcode
 
     SUPPORTED_STANDARDS = {
-      ean13: lambda { |bit_array| Codebar::Standard::Ean13::Code.new(bit_array) }
+      'ean13' =>  lambda { |bit_array| Codebar::Standard::Ean13::Code.new(bit_array) },
+      'upc-a' =>  lambda { |bit_array| Codebar::Standard::Ean13::Code.new(bit_array) }
     }
 
     def initialize(file_path, processor = Image::Processor.new)
@@ -18,7 +19,7 @@ module Codebar
     end
 
     def decode(standard = :ean13)
-      barcode_constructor = SUPPORTED_STANDARDS[standard]
+      barcode_constructor = SUPPORTED_STANDARDS[standard.to_s]
       raise UnsupportedBarcodeStandardError unless barcode_constructor
 
       barcode_bit_array = Image::Extractor.new(processed_image).extract
