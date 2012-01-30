@@ -33,7 +33,6 @@ Following list contains sample images used during tests and development
  * ean13\_blurry.png - http://people.inf.ethz.ch/adelmanr/batoo/
  * isbn13\_blurry.png - _Robust 1D Barcode Recognition on Mobile Devices_ by Johann C. Rocholl, Sebastian Klenk, Gunther Heidemann
  * ean13\_color.png - _Research and Application of the EAN-13 Barcode Recognition on Iphone_ by YeMin Li, Li Zeng
- * ean13\_clear.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
  * ean13\_clear2.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
  * ean13\_clear5.png - http://jjil.googlecode.com/
 
@@ -42,7 +41,7 @@ Following list contains sample images used during tests and development
  * Reading image from file with preprocessing (converting into grayscale, sharpeing, binarization),
  * Decoding EAN13 barcodes from perfectly clear images.
 
-## TODO (;
+## Things to be done
 
  * Rotation detection (bar code upside down),
  * Distance algorithms for not exact matching numbers,
