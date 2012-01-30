@@ -38,10 +38,12 @@ Following list contains sample images used during tests and development
  * ean13\_clear5.png - http://jjil.googlecode.com/
 
 ## Progress
+
  * Reading image from file with preprocessing (converting into grayscale, sharpeing, binarization),
  * Decoding EAN13 barcodes from perfectly clear images.
 
-## TODO
+## TODO (;
+
  * Rotation detection (bar code upside down),
  * Distance algorithms for not exact matching numbers,
  * Support of different bar code encoding standards.
