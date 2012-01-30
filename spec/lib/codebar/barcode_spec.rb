@@ -4,7 +4,7 @@ module Codebar
   describe Barcode do
 
     let(:path) {
-      image_path('ean13_clear.png')
+      image_path('ean13_clear3.png')
       # image_path('ean13_color.png')
       # image_path('ean13_blurry.png')
       # image_path('isbn13_blurry.png')
@@ -24,8 +24,26 @@ module Codebar
     end
 
     it 'should properly decode barcode' do
+      pending
+      b = Barcode.new(image_path('ean13_clear.jpg'))
+      b.decode.should == '060204123733'
+    end
+
+    it 'should properly decode barcode, example #2' do
       b = Barcode.new(image_path('ean13_clear2.png'))
       b.decode.should == '075678164125'
+    end
+
+    it 'should properly decode barcode, example #3' do
+      pending
+      b = Barcode.new(image_path('ean13_clear3.png'))
+      b.decode.should == '901234123457'
+    end
+
+    it 'should properly decode barcode, example #4' do
+      pending
+      b = Barcode.new(image_path('ean13_clear4.jpg'))
+      b.decode.should == '060204120848'
     end
 
   end

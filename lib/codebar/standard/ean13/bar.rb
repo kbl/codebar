@@ -29,9 +29,9 @@ module Codebar
             end
           end
           widths << counter
-          border_bar_widths = widths.slice(0, 3) + (widths.slice(-3, 3))
+          guard_bar_widths = widths.slice(0, 3) + (widths.slice(-3, 3))
 
-          @narrow_width = border_bar_widths
+          @narrow_width = guard_bar_widths
                             .reduce(Hash.new(0)) { |hash, value| 
                               hash[value] += 1
                               hash }

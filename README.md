@@ -28,7 +28,7 @@ You could also try to decode `Barcode` without specyfing bar code encoding stand
 
 Following list contains sample images used during tests and development
 
- * ean13\_clear.png - http://en.wikipedia.org/wiki/International\_Article\_Number\_(EAN)
+ * ean13\_clear3.png - http://en.wikipedia.org/wiki/International\_Article\_Number\_(EAN)
  * ean13\_blurry.png - http://people.inf.ethz.ch/adelmanr/batoo/
  * isbn13\_blurry.png - _Robust 1D Barcode Recognition on Mobile Devices_ by Johann C. Rocholl, Sebastian Klenk, Gunther Heidemann
  * ean13\_color.png - _Research and Application of the EAN-13 Barcode Recognition on Iphone_ by YeMin Li, Li Zeng
