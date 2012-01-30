@@ -44,7 +44,7 @@ module Codebar
           @normalized = []
           @code.each do |sequence|
             how_many_bars = sequence.length * 1.0 / @narrow_width
-            how_many_bars.ceil.times { @normalized << sequence[0] }
+            how_many_bars.round.times { @normalized << sequence[0] }
           end
         end
 

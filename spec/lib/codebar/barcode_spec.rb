@@ -40,7 +40,6 @@ module Codebar
     end
 
     it 'should properly decode barcode, example #4' do
-      pending
       b = Barcode.new(image_path('ean13_clear4.jpg'))
       b.decode.should == '5060204120848'
     end
