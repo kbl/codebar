@@ -25,16 +25,14 @@ You could also try to decode `Barcode` without specyfing bar code encoding stand
     barcode = Codebar::Barcode.new('/path/to/image_file.gif')
     barcode.decode
 
-## Sample images
+# Requirements
 
-Following list contains sample images used during tests and development
+`Codebar` depends on two external gems:
 
- * ean13\_clear3.png - http://en.wikipedia.org/wiki/International\_Article\_Number\_(EAN)
- * ean13\_blurry.png - http://people.inf.ethz.ch/adelmanr/batoo/
- * isbn13\_blurry.png - _Robust 1D Barcode Recognition on Mobile Devices_ by Johann C. Rocholl, Sebastian Klenk, Gunther Heidemann
- * ean13\_color.png - _Research and Application of the EAN-13 Barcode Recognition on Iphone_ by YeMin Li, Li Zeng
- * ean13\_clear2.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
- * ean13\_clear5.png - http://jjil.googlecode.com/
+ * `mini_magick` - image processing tasks,
+ * `chunky\_png` - cutting acutal pixels from image file.
+
+Former indicates rather heavy dependency on ImageMagick.
 
 ## Progress
 
@@ -47,3 +45,13 @@ Following list contains sample images used during tests and development
  * Distance algorithms for not exact matching numbers,
  * Support of different bar code encoding standards.
 
+## Sample images
+
+Following list contains sample images used during tests and development
+
+ * ean13\_clear3.png - http://en.wikipedia.org/wiki/International\_Article\_Number\_(EAN)
+ * ean13\_blurry.png - http://people.inf.ethz.ch/adelmanr/batoo/
+ * isbn13\_blurry.png - _Robust 1D Barcode Recognition on Mobile Devices_ by Johann C. Rocholl, Sebastian Klenk, Gunther Heidemann
+ * ean13\_color.png - _Research and Application of the EAN-13 Barcode Recognition on Iphone_ by YeMin Li, Li Zeng
+ * ean13\_clear2.jpg - http://www.terrapin.co.uk/services/bcspecean13.html
+ * ean13\_clear5.png - http://jjil.googlecode.com/
