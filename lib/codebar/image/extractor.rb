@@ -1,5 +1,8 @@
 module Codebar
   module Image
+
+    UnableToLacateBarcodeError = Class.new(RuntimeError)
+
     class Extractor
 
       WHITE = 0xFFFFFFFF
@@ -41,6 +44,11 @@ module Codebar
 
         first = pixels.index(CONVERSION_MAP[BLACK])
         last =  pixels.rindex(CONVERSION_MAP[BLACK])
+        
+        unless (first and last)
+          raise UnableToLacateBarcodeError, "bar code couldn't be detected in central horizontal line of the image"
+        end
+
         length = last - first + 1 # adding one to include last index
 
         @extracted = pixels.slice(first, length)
