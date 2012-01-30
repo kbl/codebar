@@ -1,10 +1,15 @@
 module Codebar
   module Image
+
+    FileNotFoundError = Class.new(RuntimeError)
+
     class Processor
 
       APPLIED_PROCESSINGS = %w(convert gray_is_great sharpen binarize)
 
       def process(file_path)
+        raise FileNotFoundError, "file #{file_path} does not exist" unless File.exists?(file_path)
+
         APPLIED_PROCESSINGS.reduce(file_path) do |image, processing|
           send(processing, image)
         end
