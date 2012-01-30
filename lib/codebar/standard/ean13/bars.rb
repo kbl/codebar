@@ -3,6 +3,8 @@ module Codebar
     module Ean13
       class Bars
 
+        NUMBER_OF_BARS = 95
+
         attr_reader :narrow_width, :normalized
 
         def initialize(code)
@@ -16,13 +18,7 @@ module Codebar
         private
 
         def calculate_bar_width
-          guard_bar_widths = (@code.slice(0, 3) + (@code.slice(-3, 3))).map(&:length)
-
-          @narrow_width = guard_bar_widths
-                            .reduce(Hash.new(0)) { |hash, value| 
-                              hash[value] += 1
-                              hash }
-                            .max[0]
+          @narrow_width = (@code.join('').length * 1.0 / NUMBER_OF_BARS).round
         end
 
         def split_code_into_sequences
@@ -48,7 +44,7 @@ module Codebar
           @normalized = []
           @code.each do |sequence|
             how_many_bars = sequence.length * 1.0 / @narrow_width
-            how_many_bars.to_i.times { @normalized << sequence[0] }
+            how_many_bars.ceil.times { @normalized << sequence[0] }
           end
         end
 
