@@ -30,7 +30,7 @@ You could also try to decode `Barcode` without specyfing bar code encoding stand
 `Codebar` depends on two external gems:
 
  * `mini_magick` - image processing tasks,
- * `chunky\_png` - cutting acutal pixels from image file.
+ * `chunky_png` - cutting acutal pixels from image file.
 
 Former indicates rather heavy dependency on ImageMagick.
 
