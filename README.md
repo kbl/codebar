@@ -14,10 +14,10 @@ Currently only `EAN13` barcode are supported (whisful thinking).
 
     require 'codebar'
 
-    barcode = Codebar::Barcode.new('/path/to/image_file.gif', :ean13)
-    barcode.decode
+    barcode = Codebar::Barcode.new('/path/to/image_file.gif')
+    barcode.decode(:ean13)
 
-You could also create instance of `Barcode` without specyfing bar code encoding standard. In such case library will choose appropriate standard (if such is implemented and image could be processed).
+You could also try to decode `Barcode` without specyfing bar code encoding standard. In such case library will choose appropriate standard (if such is implemented and image could be processed).
 
     require 'codebar'
 
