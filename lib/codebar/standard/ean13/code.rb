@@ -1,9 +1,6 @@
 module Codebar
   module Standard
     module Ean13
-
-      BarcodeDataCorruptedError = Class.new(RuntimeError)
-
       class Code
 
         NO_BARS_ENCODING_DIGIT = 7

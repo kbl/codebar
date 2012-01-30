@@ -1,6 +1,7 @@
 module Codebar
 
   UnsupportedBarcodeStandardError = Class.new(RuntimeError)
+  UnknownBarcodeStandardError = Class.new(RuntimeError)
 
   class Barcode
 
@@ -18,12 +19,27 @@ module Codebar
       processed_image.write(dest_path)
     end
 
-    def decode(standard = :ean13)
-      barcode_constructor = SUPPORTED_STANDARDS[standard.to_s]
-      raise UnsupportedBarcodeStandardError unless barcode_constructor
+    def decode(standard = nil)
+      @barcode_bit_array = Image::Extractor.new(processed_image).extract
 
-      barcode_bit_array = Image::Extractor.new(processed_image).extract
-      barcode = barcode_constructor.call(barcode_bit_array)
+      if standard
+        barcode_constructor = SUPPORTED_STANDARDS[standard.to_s]
+        raise UnsupportedBarcodeStandardError, "provided standard #{standard} isn't supported" unless barcode_constructor
+
+        decode_image(barcode_constructor)
+      else
+        detect_standard_and_decode_image
+      end
+    end
+
+    def processed_image
+      @processor.process(@file_path)
+    end
+
+    private
+
+    def decode_image(barcode_constructor)
+      barcode = barcode_constructor.call(@barcode_bit_array)
 
       if barcode.valid?
         barcode.decode
@@ -32,8 +48,17 @@ module Codebar
       end
     end
 
-    def processed_image
-      @processor.process(@file_path)
+    def detect_standard_and_decode_image
+      SUPPORTED_STANDARDS.values.each do |barcode_constructor|
+        begin
+          decoded = decode_image(barcode_constructor)
+          return decoded if decoded
+        rescue Codebar::Standard::BarcodeDataCorruptedError
+          # maybe next standard will decode image successfully?
+        end
+      end
+
+      raise UnknownBarcodeStandardError, 'barcode standard detection failed'
     end
 
   end
