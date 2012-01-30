@@ -26,7 +26,6 @@ module Codebar
         end
 
         def split_code_into_sequences
-          p @code.nil?
           prev = @code[0]
           sequence = ''
           result = []
