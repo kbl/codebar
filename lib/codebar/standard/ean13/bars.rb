@@ -39,6 +39,7 @@ module Codebar
               sequence = char
             end
           end
+          result << sequence
 
           @code = result
         end
