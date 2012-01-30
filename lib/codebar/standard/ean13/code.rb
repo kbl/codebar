@@ -54,12 +54,12 @@ module Codebar
         }
 
         def initialize(code)
-          @code       = code
-          @bar_width  = Bar.new(@code).narrow_width
+          @bars       = Bars.new(code)
+          @code       = @bars.normalized
 
           right_part_beginning = guard_width + part_width + center_guard_width
-          @left_part  = code.slice(guard_width, part_width)
-          @right_part = code.slice(right_part_beginning, part_width)
+          @left_part  = @code.slice(guard_width, part_width)
+          @right_part = @code.slice(right_part_beginning, part_width)
 
           decode
         end
@@ -73,12 +73,10 @@ module Codebar
           
           @decoded = ''
           @left_part.each_slice(digit_width) do |digits|
-            digits = normalize(digits)
-            @decoded << find_number(digits.join(''), :left)
+            @decoded += find_number(digits.join(''), :left)
           end
           @right_part.each_slice(digit_width) do |digits|
-            digits = normalize(digits)
-            @decoded << find_number(digits.join(''), :right)
+            @decoded += find_number(digits.join(''), :right)
           end
 
           @decoded
@@ -87,7 +85,7 @@ module Codebar
         private
 
         def digit_width
-          @bar_width * NO_BARS_ENCODING_DIGIT
+          NO_BARS_ENCODING_DIGIT
         end
 
         def part_width
@@ -95,21 +93,11 @@ module Codebar
         end
 
         def guard_width
-          @bar_width * GUARD_NO_BARS
+          GUARD_NO_BARS
         end
 
         def center_guard_width
-          @bar_width * CENTER_GUARD_NO_BARS
-        end
-
-        def normalize(digits)
-          digits.each_slice(@bar_width).map do |number|
-            prev = number[0]
-            number.each do |n|
-              raise BarcodeDataCorruptedError unless n == prev
-            end
-            prev
-          end
+          CENTER_GUARD_NO_BARS
         end
 
         def find_number(sequence, side)
@@ -118,16 +106,21 @@ module Codebar
         end
 
         def left_side_number(sequence)
+          number = nil
+
           if @notation
-            SEQUENCES_LEFT[@notation][sequence]
+            number = SEQUENCES_LEFT[@notation][sequence]
           else
             SEQUENCES_LEFT.each do |notation, hash|
               if hash.has_key?(sequence)
                 @notation = notation
-                return SEQUENCES_LEFT[@notation][sequence]
+                number = SEQUENCES_LEFT[@notation][sequence]
+                break
               end
             end
           end
+
+          number
         end
 
         def right_side_number(sequence)
